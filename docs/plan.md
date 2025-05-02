@@ -4,9 +4,12 @@
 
 Build a production‑style, event‑driven MVP that showcases end‑to‑end MLOps skills on AWS, centred on real‑time fraud detection using a publicly available credit‑card dataset.
 ### Assumptions:
-The design assumes moderate demo traffic (hundreds of events per minute), tight personal budget (< USD 50/mo per environment),
-and the need to demonstrate best‑practice DevOps patterns (IaC, CI/CD, tagging, monitoring) without incurring the full complexity of enterprise security or compliance frameworks.
-All AWS resources are created in us‑east‑1, and the primary audience is a hiring manager assessing MLOps proficiency rather than an operations team running a 24×7 service.
+The design assumes moderate demo traffic (hundreds of events per minute),
+tight personal budget (< USD 50/mo per environment),
+and the need to demonstrate best‑practice DevOps patterns (IaC, CI/CD, tagging, monitoring) 
+without incurring the full complexity of enterprise security or compliance frameworks.
+All AWS resources are created in us‑east‑1,
+and the primary audience is a hiring manager assessing MLOps proficiency rather than an operations team running a 24×7 service.
 ---
 
 ## 2. Environments & Accounts
@@ -23,7 +26,7 @@ Terraform workspaces map 1‑for‑1 to these accounts.
 - Project = `fraud-detection`
 - Environment = `dev` | `stage` | `prod`
 
-## Reasoning:
+### Reasoning:
 Three separate AWS accounts give hard isolation and clean cost attribution,
 mirroring real‑world SDLC (Software Development Life Cycle) stages.
 Using simple /24 CIDRs prevents overlap while keeping subnet maths trivial.
@@ -109,8 +112,8 @@ while ManualApproval mimics a real governance flow without forcing automated pro
 
 ## 6. Networking & Security
   -	VPC: single‑AZ, /24, subdivided into three /26 (public, app‑private, data‑private).
-  -	NAT GW: one per env (public subnet).
-  -	Endpoints (core + ECR): S3 Gateway, Interface for SQS, SNS, DynamoDB, SageMaker (API & runtime), ECR (API & DKR).
+  -	NAT GateWay: one per env (public subnet).
+  -	Endpoints (core + ECR): S3 Gateway, Interface for SQS, SNS, DynamoDB, SageMaker (API & runtime), ECR (API & DKR).
   -	All traffic stays on AWS backbone; services without endpoints egress via NAT.
   -	Encryption: AWS‑managed SSE defaults.
 
@@ -149,13 +152,13 @@ and static Admin creds reduce OIDC setup time (an acceptable risk in disposable 
 ## 8. Monitoring & Alerting
   -	CloudWatch Alarms → SNS fraud-detection-alerts:
   -	Lambda error >1/min
-  -	SQS depth >10 msgs/5 min
+  -	SQS depth >10 msgs/5 min
   -	Endpoint 4XX/5XX >1/min
   -	DLQ messages >0/min
   -	CloudWatch Dashboard (metrics placeholders – TBD).
   -	Model Monitor: high‑frequency schedule; alerts only.
-  -	AWS Budgets: monthly fixed $50 per account → alerts topic.
-## Reasoning:
+  -	AWS Budgets: monthly fixed $50 per account → alerts topic.
+### Reasoning:
 The chosen alarms map directly to common failure modes
 (code errors, queue backlog, model endpoint faults) and feed one topic,
 simplifying alert routing.
@@ -178,11 +181,11 @@ simplifying alert routing.
 
 ## 11. Future TODOs / Placeholders
 1.	Define exact train/validation/test split & thresholds.
-2.	Complete time_since_last_tx feature with state store.
+2.	Complete `time_since_last_tx` feature with state store.
 3.	Flesh out CloudWatch Dashboard widgets.
-4.	Decide DynamoDB GSI & TTL for ad‑hoc queries and ageing.
-5.	Fill hyper‑parameter ranges & tuning job counts.
-6.	Add integration & load tests beyond unit scope.
+4.	Decide DynamoDB GSI and TTL for ad‑hoc queries and aging.
+5.	Fill hyper‑parameter ranges and tuning job counts.
+6.	Add integration and load tests beyond unit scope.
 7.	Implement automated redeploy on Model Monitor drift (optional v2).
 
 ⸻
