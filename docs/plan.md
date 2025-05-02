@@ -27,7 +27,7 @@ Terraform workspaces map 1‑for‑1 to these accounts.
 - Environment = `dev` | `stage` | `prod`
 
 ### Reasoning:
-Three separate AWS accounts give hard isolation and clean cost attribution,
+- Three separate AWS accounts give hard isolation and clean cost attribution,
 mirroring real‑world SDLC (Software Development Life Cycle) stages.
 Using simple /24 CIDRs prevents overlap while keeping subnet maths trivial.
 A minimal tag set still unlocks Cost Explorer filtering and satisfies most tagging policies without extra overhead.
@@ -40,7 +40,7 @@ A minimal tag set still unlocks Cost Explorer filtering and satisfies most taggi
 - **Splits:** The current pipeline re‑uses the validation split for evaluation.
 
 ### Reasoning:
-The Kaggle dataset is well‑known, license‑friendly,
+- The Kaggle dataset is well‑known, license‑friendly,
 and small enough
 to train quickly on free SageMaker quota while being sufficiently imbalanced to showcase metric selection and tuning.
 ---
@@ -87,7 +87,7 @@ flowchart LR
 	-	Network: deployed in VPC private subnet with SG to allow Lambda → HTTPS.
 
 ### Reasoning:
-FIFO semantics guarantee order and deduplication—important when unit‑testing a small dataset—while a DLQ
+- FIFO semantics guarantee order and deduplication—important when unit‑testing a small dataset—while a DLQ
 (Dead-Letter Queue) simplifies troubleshooting without losing data.
 ⸻
 
@@ -105,7 +105,7 @@ FIFO semantics guarantee order and deduplication—important when unit‑testing
 Pipeline triggered by GitHub Actions on push → main (static AWS creds in repo secrets).
 
 ### Reasoning:
-A tuning job with Bayesian search highlights automated model selection skills,
+- A tuning job with Bayesian search highlights automated model selection skills,
 while ManualApproval mimics a real governance flow without forcing automated promotion.
 
 ⸻
@@ -118,7 +118,7 @@ while ManualApproval mimics a real governance flow without forcing automated pro
   -	Encryption: AWS‑managed SSE defaults.
 
 ### Reasoning:
-Single Availability Zone (Single‑AZ)
+- Single Availability Zone (Single‑AZ)
 plus endpoints avoids multi‑AZ NAT duplication costs yet keeps traffic on the AWS backbone,
 demonstrating cost‑aware architecture choices suitable for a demo.
 ⸻
@@ -145,7 +145,7 @@ jobs:
 ```
 
 ### Reasoning:
-A one‑stop workflow is easier for reviewers to inspect,
+- A one‑stop workflow is easier for reviewers to inspect,
 and static Admin creds reduce OIDC setup time (an acceptable risk in disposable demo accounts).
 ⸻
 
@@ -159,7 +159,7 @@ and static Admin creds reduce OIDC setup time (an acceptable risk in disposable 
   -	Model Monitor: high‑frequency schedule; alerts only.
   -	AWS Budgets: monthly fixed $50 per account → alerts topic.
 ### Reasoning:
-The chosen alarms map directly to common failure modes
+- The chosen alarms map directly to common failure modes
 (code errors, queue backlog, model endpoint faults) and feed one topic,
 simplifying alert routing.
 ⸻
@@ -168,8 +168,8 @@ simplifying alert routing.
   -	S3 bucket fraud-detection-tfstate with prefixes /dev/, /stage/, /prod/.
   -	DynamoDB lock tables: fraud-detection-tfstate-locks-dev|stage|prod (one per env).
 ### Reasoning:
- Centralised state per bucket plus env‑specific lock tables avoid cross‑account read permissions
- while preserving a single source of truth for Terraform.
+- Centralised state per bucket plus env‑specific lock tables avoid cross‑account read permissions
+  while preserving a single source of truth for Terraform.
 ⸻
 
 ## 10. Cost‑Optimisation Notes
