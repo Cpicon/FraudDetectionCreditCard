@@ -140,7 +140,7 @@ jobs:
       - manual_approval_gate
       - repeat for stage, prod
       -	Promotion gates: unit tests pass + manual approval between envs.
-	  -	AWS auth: repo secrets AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY (Admin privileges).
+      -	AWS auth: repo secrets AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY (Admin privileges).
 ```
 
 ### Reasoning:
@@ -199,4 +199,4 @@ simplifying alert routing.
 ⸻
 
 ## Architecture
-[<img src="./arch-diagram.png"/>](./docs/arch-diagram.png)
+[<img src="./arch-diagram.png"/>](./arch-diagram.png)
