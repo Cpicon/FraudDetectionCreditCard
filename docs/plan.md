@@ -4,7 +4,7 @@
 
 Build a production‑style, event‑driven MVP that showcases end‑to‑end MLOps skills on AWS, centred on real‑time fraud detection using a publicly available credit‑card dataset.
 ### Assumptions:
-The design assumes moderate demo traffic (hundreds of events per minute),
+The design assumes moderate demo traffic (hundreds of events per minute), 
 tight personal budget (< USD 50/mo per environment),
 and the need to demonstrate best‑practice DevOps patterns (IaC, CI/CD, tagging, monitoring) 
 without incurring the full complexity of enterprise security or compliance frameworks.
@@ -50,15 +50,15 @@ to train quickly on free SageMaker quota while being sufficiently imbalanced to 
 ```mermaid
 flowchart LR
     subgraph Ingestion
-        A[Local Python generator]
-        SNS(SNS FIFO topic fraud-detection)
-        SQS(SQS FIFO queue fraud-detection-queue)
+        A["Local Python generator"]
+        SNS["SNS FIFO topic fraud-detection"]
+        SQS["SQS FIFO queue fraud-detection-queue"]
     end
     subgraph Processing
-        L[Lambda (container)]
-        SM[SageMaker real‑time endpoint]
+        L["Lambda (container)"]
+        SM["SageMaker real-time endpoint"]
     end
-    DB[(DynamoDB fraud-flag table)]
+    DB["DynamoDB fraud-flag table"]
     A --> SNS --> SQS --> L --> SM --> L --> DB
 ```
 
