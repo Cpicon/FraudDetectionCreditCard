@@ -139,9 +139,8 @@ jobs:
       - trigger SageMaker Pipeline (dev)
       - manual_approval_gate
       - repeat for stage, prod
-
-	-	Promotion gates: unit tests pass + manual approval between envs.
-	-	AWS auth: repo secrets AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY (Admin privileges).
+      -	Promotion gates: unit tests pass + manual approval between envs.
+	  -	AWS auth: repo secrets AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY (Admin privileges).
 ```
 
 ### Reasoning:
