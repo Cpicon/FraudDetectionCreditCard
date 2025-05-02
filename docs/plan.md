@@ -4,12 +4,12 @@
 
 Build a production‑style, event‑driven MVP that showcases end‑to‑end MLOps skills on AWS, centred on real‑time fraud detection using a publicly available credit‑card dataset.
 ### Assumptions:
-The design assumes moderate demo traffic (hundreds of events per minute), 
+- The project is a proof of concept (PoC) for a hiring manager, not a production system.
+- The design assumes moderate demo traffic (hundreds of events per minute), 
 tight personal budget (< USD 50/mo per environment),
 and the need to demonstrate best‑practice DevOps patterns (IaC, CI/CD, tagging, monitoring) 
 without incurring the full complexity of enterprise security or compliance frameworks.
-All AWS resources are created in us‑east‑1,
-and the primary audience is a hiring manager assessing MLOps proficiency rather than an operations team running a 24×7 service.
+All AWS resources are created in us‑east‑1.
 ---
 
 ## 2. Environments & Accounts
